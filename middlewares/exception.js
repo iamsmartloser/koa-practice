@@ -10,9 +10,9 @@ const catchError = async (ctx, next)=>{
         const isHttpException = error instanceof HttpException
         const isDev = global.config.environment === 'dev';
         
-        if(isDev && !isHttpException){
-            throw error
-        }
+        // if(isDev && !isHttpException){
+        //     throw error
+        // }
         
         if(isHttpException){
             ctx.body = {
@@ -27,6 +27,7 @@ const catchError = async (ctx, next)=>{
                 message: 'we made a mistake O(∩_∩)O~~',
                 code: 500,
                 request:`${ctx.method} ${ctx.path}`,
+                error
             };
             ctx.status = 500
         }

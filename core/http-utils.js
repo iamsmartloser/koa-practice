@@ -16,7 +16,7 @@ const httpStatus={
     STATUS_500:{code:500,message:'抱歉，服务器出错！'},
 
     // 自定义接口接口返回码
-    STATUS_10000:{code:10000,message:'非法的请求参数'},
+    STATUS_10000:{code:10000,message:'参数错误'},
     STATUS_10001:{code:10001,message:'用户未授权'},
     STATUS_10002:{code:10002,message:'登录过期'},
     STATUS_10003:{code:10003,message:'应用没有被授权，无法使用所指定的grant_type'},
@@ -31,7 +31,7 @@ const httpStatus={
 
 class HttpResponse {
 
-    constructor(data=null,code=0,message=''){
+    constructor(data=null,code=0,message='ok'){
         this.code=code;
         this.meaage=message;
         this.data=data
