@@ -5,11 +5,19 @@ class InitManager {
     static initCore(app){
         // 入口方法
         InitManager.app=app;
-        InitManager.initLoadRouters()
+        InitManager.initLoadRouters();
+        InitManager.loadConfig();
+        InitManager.loadGlobalParams();
+    }
+
+    static loadConfig(path = '') {
+        const configPath = path || process.cwd() + '/config/config.js';
+        const config = require(configPath);
+        global.config = config
     }
 
     static initLoadRouters(){
-        const apiDirectory=`${process.cwd()}/app/api`
+        const apiDirectory=`${process.cwd()}/app/api`;
 
         requireDirectory(module,apiDirectory,{visit:whenLoadModule});
 
@@ -18,7 +26,14 @@ class InitManager {
                 InitManager.app.use(obj.routes())
             }
         }
+    }
 
+    static loadGlobalParams(path = '') {
+        const httpUtilsPath = path || process.cwd() + '/core/http-utils.js';
+        const {httpStatus,HttpException,HttpResponse} = require(httpUtilsPath);
+        global.httpStatus = httpStatus;
+        global.HttpException=HttpException;
+        global.HttpResponse=HttpResponse;
     }
 }
 
