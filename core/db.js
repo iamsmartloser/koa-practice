@@ -22,11 +22,12 @@ const sequelize = new Sequelize(dbName,user,password,{
         deletedAt:'deleted_at',
         underscored:true,//驼峰转化为下划线
         freezeTableName:true
-    }
+    },
+    query: { raw:true }
 })
 
 sequelize.sync({
-    force:true  //这个参数不能随便加，他会删除已有的表重新创建
+    // force:true  //这个参数不能随便加，他会删除已有的表重新创建
 })
 
 module.exports = {

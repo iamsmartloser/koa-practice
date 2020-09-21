@@ -9,4 +9,8 @@ module.exports = {
         user:'root',
         password:'',
     },
+    security:{
+        secretKey:"abcdefg",
+        expiresIn:60*60*24*30,// 过期时间
+    },
 }

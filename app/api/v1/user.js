@@ -1,32 +1,27 @@
 const Router = require('koa-router')
 
-const {
-    User
-} = require('../../models/user')
+// const {
+//     User
+// } = require('../../models/user')
 
+const {
+    UserService
+} = require('../../service/user')
 const router = new Router({
     prefix: '/v1/user'
-})
+});
 
-const {
-    RegisterValidator,
-} = require('../../validators/user')
-
+const userService=new UserService();
 //注册 新增数据 put get delete
 
 router.post('/register', async (ctx) => {
-    const v = await new RegisterValidator().validate(ctx)
-    const user = ctx.request.body;
-    const r = await User.create(user)
-    ctx.body = new global.HttpResponse()
+    await userService.register(ctx);
 });
 
+// 登录，验证账号密码，生成token返回
 router.post('/login', async (ctx) => {
-    // const v = await new RegisterValidator().validate(ctx)
-    const user = ctx.request.body;
-    const r = await User.create(user)
-    ctx.body = new global.HttpResponse({})
-})
+    await userService.login(ctx)
+});
 
 
-module.exports = router
+module.exports = router;

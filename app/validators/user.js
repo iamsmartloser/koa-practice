@@ -7,6 +7,10 @@ const {
     User
 } = require('../models/user')
 
+const {
+    HttpException
+} = require('../../core/http-utils')
+
 class RegisterValidator extends LinValidator {
     constructor() {
         super()
@@ -15,7 +19,7 @@ class RegisterValidator extends LinValidator {
         ]
         this.password1 = [
             // 用户指定范围 123456 $^
-            new Rule('isLength', '密码至少6个字符，最多32个字符', {
+            new Rule('isLength', '密码至少6个字符，最多3 2个字符', {
                 min: 6,
                 max: 32
             }),
@@ -31,7 +35,7 @@ class RegisterValidator extends LinValidator {
         ]
     }
 
-    validatePassword(vals) {
+     validatePassword(vals) {
         const psw1 = vals.body.password1
         const psw2 = vals.body.password2
         if (psw1 !== psw2) {
@@ -47,7 +51,7 @@ class RegisterValidator extends LinValidator {
             }
         })
         if (user) {
-            throw new Error('email已存在')
+            throw new HttpException('email已存在')
         }
     }
 
